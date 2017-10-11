@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% from 'macroses/_render_field.html' import render_field %}
+
+{% block title %}Створення листа для користувачів, які є в e-mail розсилці{% endblock %}
+
+{% block container %}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            {% include 'alert.html' %}
+            <h1 class="text-center">Створення листа для користувачів, які є в e-mail розсилці</h1>
+            <blockquote>
+                <p>Важлива нотатка: після того, як ви введете тему
+                    та вміст
+                    листа і натиснете на кнопку "Відправити",
+                    відбудеться
+                    асинхронна їх розсилка (у фоновому режимі на основі
+                    вже створенного шаблону).</p>
+            </blockquote>
+            <form action="" method="post">
+                {{ form.csrf_token }}
+                {{ render_field(form.subject, size=form.subject.render_kw.size) }}
+                {{ render_field(form.message, size=form.message.render_kw.size) }}
+                <button class="btn btn-block btn-danger" type="submit">Відправити</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

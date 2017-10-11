@@ -1,0 +1,19 @@
+<nav class="navbar navbar-default navbar-lg" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                data-target="#navbar-collapse-4">
+            <span class="sr-only">Toggle navigation</span>
+        </button>
+        <img class="navbar-brand"
+             src="{{ url_for('static', filename='img/mail-icon.png') }}">
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbar-collapse-4">
+        <ul class="nav navbar-nav">
+            <li><a href="{{ url_for('newsletter.home') }}">Домашня сторінка</a></li>
+            <li><a href="{{ url_for('newsletter.add_new_email') }}">Додати e-mail</a></li>
+            <li><a href="{{ url_for('newsletter.compose_message') }}">Створити лист</a></li>
+            <li><a href="{{ url_for('newsletter.remove_by_email') }}">Видалити з розсилки</a></li>
+        </ul>
+    </div>
+</nav>

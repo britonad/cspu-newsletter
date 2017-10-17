@@ -11,9 +11,15 @@
     <div class="collapse navbar-collapse" id="navbar-collapse-4">
         <ul class="nav navbar-nav">
             <li><a href="{{ url_for('newsletter.home') }}">Домашня сторінка</a></li>
-            <li><a href="{{ url_for('newsletter.add_new_email') }}">Додати e-mail</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Список розсилки <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ url_for('newsletter.add_new_email') }}">Додати e-mail</a></li>
+                    <li><a href="{{ url_for('newsletter.check_if_exists') }}">Перевірити чи користувач у розсилці</a></li>
+                    <li><a href="{{ url_for('newsletter.remove_by_email') }}">Видалити з розсилки</a></li>
+                </ul>
+            </li>
             <li><a href="{{ url_for('newsletter.compose_message') }}">Створити лист</a></li>
-            <li><a href="{{ url_for('newsletter.remove_by_email') }}">Видалити з розсилки</a></li>
         </ul>
     </div>
 </nav>

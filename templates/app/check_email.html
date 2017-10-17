@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% from 'macroses/_render_field.html' import render_field %}
+
+{% block title %}Перевірка e-mail'ла{% endblock %}
+
+{% block container %}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            {% include 'alert.html' %}
+            <h1 class="text-center">Перевірити на існування e-mail'ла у списку розсилки</h1>
+            <form action="" method="post">
+                {{ form.csrf_token }}
+                {{ render_field(form.email, size=form.email.render_kw.size) }}
+                <button class="btn btn-block btn-info" type="submit">Перевірити</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

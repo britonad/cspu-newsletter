@@ -5,7 +5,7 @@ from wtforms.validators import Length, DataRequired
 
 
 class EmailForm(FlaskForm):
-    email = StringField(validators=[validators.Email()])
+    email = StringField(label='E-mail', validators=[validators.Email()])
 
 
 class MessageForm(FlaskForm):

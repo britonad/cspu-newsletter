@@ -3,6 +3,7 @@ import requests
 from flask import render_template
 
 from core import app
+from utils.common import parse_url
 
 
 def check_subscription(email):
@@ -51,7 +52,7 @@ def list_members():
     ).json()
 
 
-def send_message(subject, message):
+def send_message(subject, message, url):
     return requests.post(
         'https://api.mailgun.net/v3/{}/messages'.format(
             app.config['MAILGUN_DOMAIN_NAME']
@@ -66,7 +67,8 @@ def send_message(subject, message):
             'html': render_template(
                 'mail/template.html',
                 subject=subject,
-                message=message
+                message=message,
+                logo_url='{}/static/img/cspu.png'.format(parse_url(url))
             )
         }
     ).text

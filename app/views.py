@@ -124,7 +124,8 @@ def compose_message():
         if form.validate_on_submit():
             result = send_message(
                 form.subject.data.strip(),
-                form.message.data.strip()
+                form.message.data.strip(),
+                request.base_url
             )
             flash(
                 'Лист успішно відправленно користувачам.',

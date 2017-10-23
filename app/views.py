@@ -1,5 +1,7 @@
 from flask import render_template, redirect, url_for, flash, request
 
+from core import basic_auth
+
 from app import newsletter_bp
 from app.forms import EmailForm, MessageForm
 
@@ -8,6 +10,7 @@ from utils.mailgun import add_to_mailing_list, check_subscription, \
 
 
 @newsletter_bp.route('/', methods=['GET', 'POST'])
+@basic_auth.required
 def home():
     members = list_members()
     return render_template(
@@ -17,6 +20,7 @@ def home():
 
 
 @newsletter_bp.route('/add-new-email/', methods=['GET', 'POST'])
+@basic_auth.required
 def add_new_email():
     form = EmailForm(request.form)
     if request.method == 'POST':
@@ -43,6 +47,7 @@ def add_new_email():
 
 
 @newsletter_bp.route('/check-if-exists/', methods=['GET', 'POST'])
+@basic_auth.required
 def check_if_exists():
     form = EmailForm(request.form)
     if request.method == 'POST':
@@ -70,6 +75,7 @@ def check_if_exists():
 
 
 @newsletter_bp.route('/remove-by-email/', methods=['GET', 'POST'])
+@basic_auth.required
 def remove_by_email():
     form = EmailForm(request.form)
     if request.method == 'POST':
@@ -98,6 +104,7 @@ def remove_by_email():
 
 
 @newsletter_bp.route('/remove-by-button/<email>/')
+@basic_auth.required
 def remove_by_button(email):
     exists = delete_from_mailing_list(email)
     if not exists.get('member'):
@@ -118,6 +125,7 @@ def remove_by_button(email):
 
 
 @newsletter_bp.route('/compose-message/', methods=['GET', 'POST'])
+@basic_auth.required
 def compose_message():
     form = MessageForm(request.form)
     if request.method == 'POST':

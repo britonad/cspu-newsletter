@@ -59,7 +59,7 @@ def send_message(subject, message, url):
         ),
         auth=('api', app.config['MAILGUN_API_KEY']),
         data={
-            'from': 'cspu-newsletter@{}'.format(
+            'from': 'ЦДПУ ім. В. Винниченка <cspu-newsletter@{}>'.format(
                 app.config['MAILGUN_DOMAIN_NAME']
             ),
             'to': app.config['MAILING_LIST'],

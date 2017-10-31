@@ -1,3 +1,4 @@
+from werkzeug.datastructures import CombinedMultiDict
 from flask import render_template, redirect, url_for, flash, request
 
 from core import basic_auth
@@ -5,6 +6,7 @@ from core import basic_auth
 from app import newsletter_bp
 from app.forms import EmailForm, MessageForm
 
+from utils.common import check_uploaded_files
 from utils.mailgun import add_to_mailing_list, check_subscription, \
     delete_from_mailing_list, list_members, send_message
 
@@ -127,13 +129,14 @@ def remove_by_button(email):
 @newsletter_bp.route('/compose-message/', methods=['GET', 'POST'])
 @basic_auth.required
 def compose_message():
-    form = MessageForm(request.form)
+    form = MessageForm(CombinedMultiDict((request.files, request.form)))
     if request.method == 'POST':
         if form.validate_on_submit():
             result = send_message(
                 form.subject.data.strip(),
                 form.message.data.strip(),
-                request.base_url
+                request.base_url,
+                check_uploaded_files(form.data.values())
             )
             flash(
                 'Лист успішно відправленно користувачам.',

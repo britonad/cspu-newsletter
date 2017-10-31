@@ -20,10 +20,15 @@
                     асинхронна їх розсилка (у фоновому режимі на основі
                     вже створенного шаблону).</p>
             </blockquote>
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
                 {{ form.csrf_token }}
                 {{ render_field(form.subject, size=form.subject.render_kw.size) }}
                 {{ render_field(form.message, size=form.message.render_kw.size) }}
+                {{ render_field(form.file1) }}
+                {{ render_field(form.file2) }}
+                {{ render_field(form.file3) }}
+                {{ render_field(form.file4) }}
+                {{ render_field(form.file5) }}
                 <button class="btn btn-block btn-primary" type="submit">Відправити</button>
             </form>
         </div>

@@ -52,12 +52,18 @@ def list_members():
     ).json()
 
 
-def send_message(subject, message, url):
+def send_message(subject, message, url, attachments):
     return requests.post(
         'https://api.mailgun.net/v3/{}/messages'.format(
             app.config['MAILGUN_DOMAIN_NAME']
         ),
         auth=('api', app.config['MAILGUN_API_KEY']),
+        files=[
+            (
+                'attachment',
+                (attachment.filename, attachment)
+            ) for attachment in attachments
+        ],
         data={
             'from': 'ЦДПУ ім. В. Винниченка <cspu-newsletter@{}>'.format(
                 app.config['MAILGUN_DOMAIN_NAME']

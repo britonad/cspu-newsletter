@@ -3,9 +3,13 @@
 
 {% block title %}Створення листа для користувачів, які є в e-mail розсилці{% endblock %}
 
+{% block assets %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/trumbowyg.min.css') }}">
+{% endblock %}
+
 {% block container %}
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             {% include 'alert.html' %}
             <h1 class="text-center">Створення листа для користувачів, які є в e-mail розсилці</h1>
             <blockquote>
@@ -24,4 +28,22 @@
             </form>
         </div>
     </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static', filename='js/trumbowyg.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/langs/ua.min.js') }}"></script>
+    <script>
+        $('#message').trumbowyg({
+            lang: 'ua',
+            mobile: true,
+            fixedBtnPane: true,
+            fixedFullWidth: true,
+            semantic: true,
+            resetCss: true,
+            autoAjustHeight: true,
+            autogrow: true,
+            btnsAdd: ['close']
+        });
+    </script>
 {% endblock %}

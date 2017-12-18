@@ -135,7 +135,6 @@ def compose_message():
             result = send_message(
                 form.subject.data.strip(),
                 form.message.data.strip(),
-                request.base_url,
                 check_uploaded_files(form.data.values())
             )
             flash(

@@ -1,4 +1,6 @@
 *.pyc
 *.log
 .idea/
+.coverage
+coverage/
 

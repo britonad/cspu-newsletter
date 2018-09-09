@@ -1,23 +1,54 @@
-from werkzeug.datastructures import CombinedMultiDict
-from flask import render_template, redirect, url_for, flash, request
+from urllib.parse import urlparse
 
+from app.forms import EmailForm, ListForm, MessageForm
 from core import basic_auth
+from flask import (
+    Blueprint,
+    flash,
+    redirect,
+    render_template,
+    request,
+    url_for
+)
+from utils.common import build_mailgun_url, check_uploaded_files
+from utils.mailgun import (
+    add_to_mailing_list,
+    check_subscription,
+    delete_from_mailing_list,
+    list_members,
+    send_message
+)
+from werkzeug.datastructures import CombinedMultiDict
 
-from app import newsletter_bp
-from app.forms import EmailForm, MessageForm
-
-from utils.common import check_uploaded_files
-from utils.mailgun import add_to_mailing_list, check_subscription, \
-    delete_from_mailing_list, list_members, send_message
+newsletter_bp = Blueprint('newsletter', __name__)
 
 
 @newsletter_bp.route('/', methods=['GET', 'POST'])
 @basic_auth.required
 def home():
+    form = ListForm(request.args)
+
+    address = request.args.get('address')
+    limit = request.args.get('limit')
+    page = request.args.get('page')
+
     members = list_members()
+
+    if request.method == 'GET' and all([address, limit, page]):
+        if form.validate():
+            members = list_members(build_mailgun_url(dict(form.data.items())))
+        else:
+            flash(form.errors, category='danger')
+            return redirect(url_for('newsletter.home'))
+
+    previous = ''.join(['?', urlparse(members['paging']['previous']).query])
+    next_p = ''.join(['?', urlparse(members['paging']['next']).query])
+
     return render_template(
         'app/home.html',
-        members=members['items']
+        members=members['items'],
+        previous=previous,
+        next_p=next_p
     )
 
 

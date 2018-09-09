@@ -3,4 +3,6 @@
 .idea/
 .coverage
 coverage/
-
+core/local_settings.py
+logs/*
+!logs/.gitkeep

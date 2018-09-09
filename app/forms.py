@@ -1,11 +1,19 @@
 from flask_wtf import FlaskForm
-from wtforms import validators
-from wtforms.validators import Length, DataRequired
-from wtforms.fields import StringField, TextAreaField, FileField
+from wtforms.fields import FileField, StringField, TextAreaField, IntegerField
+from wtforms.validators import DataRequired, Email, Length
 
 
 class EmailForm(FlaskForm):
-    email = StringField(label='E-mail', validators=[validators.Email()])
+    email = StringField(label='E-mail', validators=[Email()])
+
+
+class ListForm(FlaskForm):
+    page = StringField(validators=[Length(min=4, max=8)])
+    address = StringField(validators=[Email()])
+    limit = IntegerField(default=100)
+
+    class Meta:
+        csrf = False
 
 
 class MessageForm(FlaskForm):

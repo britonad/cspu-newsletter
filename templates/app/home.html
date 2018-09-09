@@ -6,7 +6,19 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             {% include 'alert.html' %}
-            <h1 class="text-center">Список людей, які є в розсилці (перші 100)</h1>
+            <h1 class="text-center">Список людей, які є в розсилці.</h1>
+
+            <div>
+                <a href="{{ previous }}" class="btn btn-danger previous">
+                    <i class="fui-arrow-left"></i>
+                    Попередній
+                </a>
+                <a href="{{ next_p }}" class="btn btn-danger next">
+                    Наступний
+                    <i class="fui-arrow-right"></i>
+                </a>
+            </div>
+
             {% for member in members %}
                 <p class="lead">{{ loop.index }}. {{ member.address }} <a
                         href="{{ url_for('newsletter.remove_by_button', email=member.address) }}"><span

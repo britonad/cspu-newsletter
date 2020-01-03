@@ -16,7 +16,8 @@ def check_subscription(email):
     """
 
     response = requests.get(
-        'https://api.mailgun.net/v3/lists/{}/members/{}'.format(
+        '{}/lists/{}/members/{}'.format(
+            current_app.config['MAILGUN_BASE_URL'],
             current_app.config['MAILING_LIST'],
             email
         ),
@@ -38,7 +39,8 @@ def add_to_mailing_list(email):
     subscription = check_subscription(email)
     if subscription.get('message'):
         response = requests.post(
-            'https://api.mailgun.net/v3/lists/{}/members'.format(
+            '{}/lists/{}/members'.format(
+                current_app.config['MAILGUN_BASE_URL'],
                 current_app.config['MAILING_LIST']
             ),
             auth=('api', current_app.config['MAILGUN_API_KEY']),
@@ -65,7 +67,8 @@ def delete_from_mailing_list(email):
     """
 
     response = requests.delete(
-        'https://api.mailgun.net/v3/lists/{}/members/{}'.format(
+        '{}/lists/{}/members/{}'.format(
+            current_app.config['MAILGUN_BASE_URL'],
             current_app.config['MAILING_LIST'],
             email
         ),
@@ -87,7 +90,8 @@ def list_members(mailgun_url=None):
     """
 
     response = requests.get(
-        'https://api.mailgun.net/v3/lists/{}/members/pages'.format(
+        '{}/lists/{}/members/pages'.format(
+            current_app.config['MAILGUN_BASE_URL'],
             current_app.config['MAILING_LIST']
         ) if not mailgun_url else mailgun_url,
         auth=('api', current_app.config['MAILGUN_API_KEY'])
@@ -108,7 +112,8 @@ def send_message(subject, message, attachments):
     """
 
     response = requests.post(
-        'https://api.mailgun.net/v3/{}/messages'.format(
+        '{}/{}/messages'.format(
+            current_app.config['MAILGUN_BASE_URL'],
             current_app.config['MAILGUN_DOMAIN_NAME']
         ),
         auth=('api', current_app.config['MAILGUN_API_KEY']),

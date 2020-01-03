@@ -12,8 +12,11 @@ def build_mailgun_url(query_data):
     :rtype: str
     """
 
-    mailgun_url = 'https://api.mailgun.net/v3/lists/{}/members/pages'
-    mailgun_url =mailgun_url.format(current_app.config['MAILING_LIST'])
+    mailgun_url = '{}/lists/{}/members/pages'
+    mailgun_url = mailgun_url.format(
+        current_app.config['MAILGUN_BASE_URL'],
+        current_app.config['MAILING_LIST']
+    )
     mailgun_url = ''.join([mailgun_url, '?', urlencode(query_data)])
 
     return mailgun_url

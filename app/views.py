@@ -41,6 +41,7 @@ def home():
             flash(form.errors, category='danger')
             return redirect(url_for('newsletter.home'))
 
+    # TODO: Fix KeyError
     previous = ''.join(['?', urlparse(members['paging']['previous']).query])
     next_p = ''.join(['?', urlparse(members['paging']['next']).query])
 

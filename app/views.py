@@ -41,15 +41,16 @@ def home():
             flash(form.errors, category='danger')
             return redirect(url_for('newsletter.home'))
 
-    # TODO: Fix KeyError
-    previous = ''.join(['?', urlparse(members['paging']['previous']).query])
-    next_p = ''.join(['?', urlparse(members['paging']['next']).query])
+    p = members.get('paging', {}).get('previous', '')
+    n = members.get('paging', {}).get('next', '')
+    previous_page = ''.join(['?', urlparse(p).query])
+    next_page = ''.join(['?', urlparse(n).query])
 
     return render_template(
         'app/home.html',
-        members=members['items'],
-        previous=previous,
-        next_p=next_p
+        members=members.get('items', []),
+        previous=previous_page,
+        next_p=next_page
     )
 
 

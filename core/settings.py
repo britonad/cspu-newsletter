@@ -5,7 +5,6 @@ BASE_DIR = os.path.join(
 )
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
-LOGS_DIR = os.path.join(BASE_DIR, 'logs')
 
 
 class Common:

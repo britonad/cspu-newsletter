@@ -1,12 +1,9 @@
-import os
 import logging
 
-from core.settings import LOGS_DIR
-
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
-fh = logging.FileHandler(os.path.join(LOGS_DIR, 'newsletter.log'))
+fh = logging.StreamHandler()
 fmt = '%(asctime)s - %(levelname)s - %(message)s'
 formatter = logging.Formatter(fmt)
 fh.setFormatter(formatter)

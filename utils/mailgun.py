@@ -124,7 +124,7 @@ def send_message(subject, message, attachments):
             ) for attachment in attachments
         ],
         data={
-            'from': 'ЦДПУ ім. В. Винниченка <cspu-newsletter@{}>'.format(
+            'from': 'ЦДУ ім. В. Винниченка <cuspu@{}>'.format(
                 current_app.config['MAILGUN_DOMAIN_NAME']
             ),
             'to': current_app.config['MAILING_LIST'],

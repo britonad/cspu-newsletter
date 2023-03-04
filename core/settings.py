@@ -10,7 +10,7 @@ LOGS_DIR = os.path.join(BASE_DIR, 'logs')
 
 class Common:
     DEBUG = True
-    MAILGUN_BASE_URL = 'https://api.eu.mailgun.net/v3'
+    MAILGUN_BASE_URL = 'https://api.mailgun.net/v3'
     MAILGUN_API_KEY = os.environ.get('MAILGUN_API_KEY')
     MAILGUN_DOMAIN_NAME = os.environ.get('MAILGUN_DOMAIN_NAME')
     SECRET_KEY = os.environ.get('SECRET_KEY')
